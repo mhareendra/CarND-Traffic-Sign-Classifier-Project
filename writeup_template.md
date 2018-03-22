@@ -101,14 +101,14 @@ My final model consisted of the following layers:
 | RELU					|												|
 | Max pooling	      	| 2x2 stride, Valid padding, outputs 14x14x32 				|
 | Convolution 5x5	    | 64 filters, 1x1 stride, Valid padding, outputs 10x10x64	|
-| RELU					|												|
+| RELU					|					Activation							|
 | Max pooling	      	| 2x2 stride, Valid padding, outputs 5x5x64 				|
 | Flatten        | input 5x5x64, output= 1600   |
 | Fully connected		|  input=1600, output=800   									|
-| RELU |                   |
+| RELU |       Activation          |
 | Dropout |    keep probability: 0.75  |
 | Fully connected		|  input=800, output=200   									|
-| RELU |                   |
+| RELU |       Activation            |
 | Dropout |    keep probability: 0.75  |
 |	Fully connected (Logits)					|	outputs = 43											| 
 
@@ -129,16 +129,25 @@ My final model results were:
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+The first architecture chosen was the LeNet architecture used for classifying MNIST data. The reason to choose this was the similarity in dimensions of the images and the similarity in features (shape, geomtery) of the images.
+
+I had also tried out different types of preprocessing, including retaining the original RGB image, converting to grayscale and normalization, converting to YUV and normalization etc. Finally, using the normalized Y layer provided the best results.
+
+* What were some problems with the initial architecture?
+
+The best validation accuracy obtained was 85% by choosing RGB images as input to the model. Also, the training accuracy was not hitting 100%. This clearly indicated that the model was not able to learn enough information from the training samples.
+
+
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
+The modification involved increasing the number of filters in the convolutional layers as this directly affected how much information could be extracted from the images. This solved the underfitting problem and the training accuracy reached 100% consistently (solved under-fitting problem).
+
+But this lead to over-fitting since the validation accuracy still did not increase drastically. Adding dropout to the fully connnected layers helped solve this issue to an extent.
+
+* Which parameters were tuned? How were they adjusted and why?
+
+Increasing the number of epochs gave enough time to the model to learn and improve the validation accuracy while maintaining the same learning rate of 0.001. The final number of epochs chosen was 75.
 
 ### Test a Model on New Images
 
@@ -150,6 +159,8 @@ Here are five German traffic signs that I found on the web:
 ![alt text][image8] ![alt text][image9]
 
 Pre processed:
+
+
 ![alt text][image10]
 
 It can be observed that the traffic signs occupy majority of the image ensuring that we do not have to apply any detection algorithms to segment the objects of interest.
