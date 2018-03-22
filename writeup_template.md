@@ -98,7 +98,7 @@ My final model consisted of the following layers:
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x1 image   							| 
 | Convolution 5x5     	| 32 filters, 1x1 stride, Valid padding, outputs 28x28x32 	|
-| RELU					|												|
+| RELU					|				Activation								|
 | Max pooling	      	| 2x2 stride, Valid padding, outputs 14x14x32 				|
 | Convolution 5x5	    | 64 filters, 1x1 stride, Valid padding, outputs 10x10x64	|
 | RELU					|					Activation							|
